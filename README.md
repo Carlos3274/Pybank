@@ -1,4 +1,4 @@
-PyBank 
+PyBank 🏦
 ---
 A banking system that allows you to:
 
