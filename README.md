@@ -1,5 +1,4 @@
-PyBank 🏦
----
+<h1>PyBank 💸</h1>
 A banking system that allows you to:
 
 1. Create a bank account
