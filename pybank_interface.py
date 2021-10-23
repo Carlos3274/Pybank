@@ -5,6 +5,17 @@ from PySimpleGUI import PySimpleGUI as sg
 banco = Pybank()
 
 # janelas
+def janela_inicial():
+    sg.theme('Reddit')
+    layout = [
+        
+        [sg.Text('Bem-vindo!')],
+        [sg.Image('imagem-250.png')],
+        [sg.Button('Login'),sg.Button('Cadastrar'),sg.Button('Sair')]
+    ]
+    return sg.Window('PyBank',layout = layout,finalize = True)
+    
+
 def janela_login():
     sg.theme('Reddit')
     layout = [
@@ -13,7 +24,7 @@ def janela_login():
         [sg.Text('Usuario'),sg.Input(key='usuario',size=(20,1))],
         [sg.Text('Senha'),sg.Input(key='senha',password_char='*',size=(20,1))],
         [sg.Checkbox('Salvar o login')],
-        [sg.Button('Entrar'),sg.Button('Cadastrar')]
+        [sg.Button('Entrar'),sg.Button('Voltar')]
         
 
     ]
@@ -77,13 +88,18 @@ def janela_transferir():
     return sg.Window('Transferir',layout = layout,finalize = True)
 
  # Criação das janela inicial
-janela1, janela2, janela3, janela4 , janela5, janela6, janela7 = janela_login(), None, None, None, None, None, None
+janela0 ,janela1, janela2, janela3, janela4 , janela5, janela6, janela7 = janela_inicial(),None, None, None, None, None, None, None
 
 # loop de leitura de eventos
 
 while True:
     window, event, values = sg.read_all_windows()
     # Quando a janela é fechada
+
+    if window == janela0 and event == sg.WIN_CLOSED:
+        break
+    if window == janela0 and event == 'Sair':
+        break
     if window == janela1 and event == sg.WIN_CLOSED:
         break
     if window == janela2 and event == sg.WIN_CLOSED:
@@ -101,10 +117,18 @@ while True:
     
     # Quando ir para a próxima janela
     
+    if window == janela0 and event == 'Login':
+        janela0.hide()
+        janela1 = janela_login()
 
-    if window == janela1 and event == 'Cadastrar':
-        janela1.hide()
+    if window == janela0 and event == 'Cadastrar':
+        janela0.hide()
         janela2 = janela_cadastro()
+
+    if window == janela1 and event == 'Voltar':
+        janela1.hide()
+        janela0.un_hide()
+
     if window == janela1 and event == 'Entrar':
         nome = values['nome']
         usuario = values['usuario']
@@ -113,16 +137,14 @@ while True:
         if banco.logado == True:
             janela1.hide()
             janela3 = janela_menu()
-            
-            
-            
+                      
         else:
             sg.popup('Dados inválidos, digite novamente')
      
             
     if window == janela2 and event == 'Voltar':    
         janela2.hide()
-        janela1.un_hide()
+        janela0.un_hide()
     if window == janela2 and event == 'Salvar':
         nome_cad = values['nome_cad']
         user_cad = values['user_cad']
