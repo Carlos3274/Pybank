@@ -13,5 +13,5 @@
 <p style="text-align:center">The graphical interface was made in Pt-BR using PySimpleGUI<p>
 <hr>
 <h1 style="text-align:center" > Demonstration </h1>
-
+<img src="pybank-gif.gif" alt="gif-pybank">
 
